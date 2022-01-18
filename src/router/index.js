@@ -14,16 +14,16 @@ const routes = [
     component: () => import('../views/About.vue'),
   },
   {
-    path: '/jobs/:id',
+    path: '/photos/:id',
     name: 'PhotoDetails',
     component: PhotoDetails,
     props: true,
   },
-  {
-    path: '/photos',
-    redirect: '/',
-    component: Home,
-  },
+  // {
+  //   path: '/photos',
+  //   redirect: '/',
+  //   component: Home,
+  // },
 ];
 
 const router = createRouter({
