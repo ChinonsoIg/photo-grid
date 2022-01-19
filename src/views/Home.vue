@@ -2,10 +2,23 @@
   <main class="main">
     <div class="grid-container" v-if="photos.length">
       <!-- <h1>Search component here</h1> -->
-      <div v-for="photo in photos" :key="photo.id" class="grid-item">
-        <router-link :to="{ name: 'PhotoDetails', params: { id: photo.id } }">
-          <img :src="photo.image" />
-        </router-link>
+      <div
+        v-for="photo in photos"
+        :key="photo.id"
+        class="grid-item"
+         @click.alt="toggleModal(photo)">
+          <img :src="photo.urls.full" class="images-collection" />
+      </div>
+      <div v-if="showModal">
+        <Modal @close="toggleModal()">
+          <template v-slot:links>
+            <img :src="photoUrl" alt="name" class="image-modal">
+            <div class="caption">
+              <p>{{ name }}</p>
+              <small><i>{{ location }}</i></small>
+            </div>
+          </template>
+        </Modal>
       </div>
     </div>
 
@@ -17,27 +30,65 @@
 
 <script>
 // @ is an alias to /src
-// import HelloWorld from '@/components/HelloWorld.vue';
+import Modal from '@/components/Modal.vue';
+import unsplash from '../api/index';
 
 export default {
   name: 'Home',
   data() {
     return {
       photos: [],
+
+      name: '',
+      description: '',
+      altDescription: '',
+      location: '',
+      photoUrl: '',
+      showModal: false,
     };
   },
-  mounted() {
-    fetch('http://localhost:3000/photos')
-      .then((res) => res.json())
-      .then((data) => {
-        this.photos = data;
-        return this.photos;
-      })
-      .catch((err) => console.log(err.message));
+  methods: {
+    toggleModal(photo) {
+      if (!photo) {
+        this.showModal = !this.showModal;
+        return;
+      }
+      const {
+        description,
+        // eslint-disable-next-line camelcase
+        alt_description,
+        user: { name, location },
+        urls: { full },
+      } = photo;
+
+      this.name = name;
+      this.description = description;
+      // eslint-disable-next-line camelcase
+      this.altDescription = alt_description;
+      this.location = location;
+      this.photoUrl = full;
+      this.showModal = !this.showModal;
+    },
+    fetchPhotos(page) {
+      unsplash.photos
+        .list({
+          page,
+          perPage: 10,
+          orederBy: 'latest',
+        })
+        .then((res) => {
+          // console.log(res.response.results);
+          const newPhotos = res.response.results;
+          this.photos = [...newPhotos];
+        });
+    },
   },
-  // components: {
-  //   HelloWorld,
-  // },
+  mounted() {
+    this.fetchPhotos(4);
+  },
+  components: {
+    Modal,
+  },
 };
 </script>
 
@@ -59,20 +110,20 @@ export default {
     padding: 1rem;
     box-sizing: border-box;
   }
-
-  .grid-item {
-    grid-row: span 6;
-    border-radius: 1rem;
-    cursor: pointer;
-    outline: none;
-    }
-  img {
+  .images-collection {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: inherit;
     background-color: #eeeeee;
     border-radius: 1rem;
+  }
+  .images-collection:hover {
+    box-shadow: 0 13px 27px -5px
+      hsla(240, 30.1%, 28%, 0.25),
+      0 8px 16px -8px
+      hsla(0, 0%, 0%, 0.3),
+      0 -6px 16px -6px
+      hsla(0, 0%, 0%, 0.03);
   }
   .grid-item {
     grid-row: span 6;
@@ -85,6 +136,29 @@ export default {
   }
   .grid-item:nth-child(1) {
     grid-row: span 4;
+  }
+  .caption {
+    position: relative;
+    bottom: 0;
+    margin: 20px 0 5px;
+    padding: 0 1rem;
+    /* height: 10%; */
+    border: 2px solid red;
+  }
+  .caption p {
+    font-size: small;
+    text-align: left;
+    /* margin: ; */
+  }
+  .caption small {
+    font-size: small;
+    text-align: left;
+  }
+  .image-modal {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 0.5rem 0.5rem 0 0;
   }
 
   @media (max-width: 768px) {

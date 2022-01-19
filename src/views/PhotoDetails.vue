@@ -18,15 +18,15 @@ export default {
       photo: null,
     };
   },
-  mounted() {
-    fetch(`http://localhost:3000/photos/${this.id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        this.photo = data;
-        return this.photo;
-      })
-      .catch((err) => console.log(err.message));
-  },
+  // mounted() {
+  //   fetch(`http://localhost:3000/photos/${this.id}`)
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       this.photo = data;
+  //       return this.photo;
+  //     })
+  //     .catch((err) => console.log(err.message));
+  // },
 };
 </script>
 

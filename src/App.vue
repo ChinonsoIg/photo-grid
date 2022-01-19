@@ -3,7 +3,7 @@
 </template>
 
 <style>
-@import url('https://fonts.googleapis.com/css?family=Roboto');
+/* @import url('https://fonts.googleapis.com/css?family=Roboto'); */
 
 html { font-size: 22px; }
 
