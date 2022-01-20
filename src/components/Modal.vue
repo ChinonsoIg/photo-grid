@@ -38,13 +38,13 @@ export default {
     height: 100%;
   }
   .modal {
-    box-sizing: border-box;
+    /* box-sizing: border-box; */
     width: 60%;
+    height: 85vh;
     margin: 0 auto;
     background: rgb(255, 255, 255);
     border-radius: 0.5rem;
     box-sizing: border-box;
-    height: 85vh;
   }
   .close-modal {
     position: relative;
@@ -66,7 +66,7 @@ export default {
     .modal {
       width: 70%;
       height: 65vh;
-      margin: 0 auto;
+      margin: 40px auto;
       background: rgb(255, 255, 255);
       border-radius: 0.5rem;
     }
