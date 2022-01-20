@@ -200,7 +200,6 @@ export default {
       padding: 1.5rem;
       gap: 2rem;
       grid-auto-rows: 5rem;
-      /* position: relative; */
       top: -100px;
     }
   }

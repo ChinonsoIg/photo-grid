@@ -62,10 +62,10 @@ export default {
     color: rgba(255, 255, 255, 0.6);
     background: rgba(255, 255, 255, 0.4);
   }
-  @media (max-width: 768px) {
+  @media (max-width: 992px) {
     .modal {
-      box-sizing: border-box;
       width: 70%;
+      height: 65vh;
       margin: 0 auto;
       background: rgb(255, 255, 255);
       border-radius: 0.5rem;
