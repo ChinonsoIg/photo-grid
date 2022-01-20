@@ -14,11 +14,11 @@
         :key="photo.id"
         class="grid-item"
          @click="toggleModal(photo)">
-          <img :src="photo.urls.full" class="images-collection" />
+          <img :src="photo.urls.thumb" class="images-collection" />
       </div>
       <div v-if="showModal">
         <Modal @close="toggleModal()">
-          <template v-slot:links>
+          <template v-slot:imageDetails>
             <img :src="photoUrl" alt="name" class="image-modal">
             <div class="caption">
               <h6>{{ name }}</h6>
@@ -52,7 +52,6 @@ export default {
       altDescription: '',
       location: '',
       photoUrl: '',
-      // query: '',
       showModal: false,
     };
   },
@@ -67,7 +66,7 @@ export default {
         // eslint-disable-next-line camelcase
         alt_description,
         user: { name, location },
-        urls: { full },
+        urls: { thumb },
       } = photo;
 
       this.name = name;
@@ -75,7 +74,7 @@ export default {
       // eslint-disable-next-line camelcase
       this.altDescription = alt_description;
       this.location = location;
-      this.photoUrl = full;
+      this.photoUrl = thumb;
       this.showModal = !this.showModal;
     },
     fetchPhotos(page) {
@@ -87,6 +86,7 @@ export default {
         })
         .then((res) => {
           const newPhotos = res.response.results;
+          console.log(newPhotos);
           this.photos = [...newPhotos];
         });
     },
@@ -183,7 +183,7 @@ export default {
     border-radius: 0.5rem 0.5rem 0 0;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 992px) {
     .grid-container {
       gap: 1rem;
       grid-auto-rows: 2.5rem;

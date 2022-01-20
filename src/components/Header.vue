@@ -14,7 +14,6 @@
 <script>
 export default {
   name: 'Header',
-  // emits: ['submit'],
   data() {
     return {
       query: '',
@@ -22,24 +21,10 @@ export default {
   },
   methods: {
     getQuery() {
-      // if (!value) {
-      //   console.log('Please type a value');
-      // }
-      this.$emit('submit', this.query);
-      // console.log('v: ', value);
       console.log('q: ', this.query);
+      this.$emit('submit', this.query);
     },
   },
-  // computed: {
-  //   selected: {
-  //     get() {
-  //       return this.value;
-  //     },
-  //     set(value) {
-  //       this.$emit('input', value);
-  //     },
-  //   },
-  // },
 };
 </script>
 

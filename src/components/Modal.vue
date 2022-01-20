@@ -6,11 +6,9 @@
       X
     </span>
     <div class="modal">
-      <!-- <slot></slot> -->
-
       <!-- Named slot -->
       <!-- <div class="actions"> -->
-        <slot name="links"></slot>
+        <slot name="imageDetails"></slot>
       <!-- </div> -->
 
     </div>
