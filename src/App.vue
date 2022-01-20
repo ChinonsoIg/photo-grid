@@ -1,11 +1,30 @@
 <template>
-  <router-view/>
+  <Home />
+  <!-- <router-view/> -->
 </template>
 
+<script>
+import Home from '@/views/Home.vue';
+
+export default {
+  components: {
+    Home,
+  },
+};
+
+</script>
+
 <style>
-/* @import url('https://fonts.googleapis.com/css?family=Roboto'); */
+@import url('https://fonts.googleapis.com/css?family=Roboto');
 
 html { font-size: 22px; }
+
+.skeleton {
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 body {
   font-family: 'Roboto', sans-serif;

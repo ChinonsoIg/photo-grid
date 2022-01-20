@@ -45,6 +45,7 @@ export default {
     background: rgb(255, 255, 255);
     border-radius: 0.5rem;
     box-sizing: border-box;
+    border: 2px solid red;
   }
   .close-modal {
     position: relative;

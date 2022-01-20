@@ -1,47 +1,29 @@
 <template>
-  <main class="main">
-    <header class="search">
-      <Header
-        v-on:onsubmit="searchPhotos"
-        :searchTitle="searchTitle"
-      />
-      <!-- <form action="" @submit.prevent="searchPhotos">
-        <input type="text" v-model="query">
-        <p>{{ query }}</p>
-      </form> -->
-    </header>
-    <section class="grid-container" v-if="photos.length">
-      <div
-        v-for="photo in photos"
-        :key="photo.id"
-        class="grid-item"
-         @click="toggleModal(photo)">
-          <img :src="photo.urls.regular" class="images-collection" />
-      </div>
-      <div v-if="showModal">
-        <Modal @close="toggleModal()">
-          <template v-slot:imageDetails>
-            <img :src="photoUrl" alt="name" class="image-modal">
-            <div class="caption">
-              <h6>{{ name }}</h6>
-              <p>{{ location ? location : description }}</p>
-            </div>
-          </template>
-        </Modal>
-      </div>
-    </section>
-
-    <section v-else>
-      Loading ....
-    </section>
-  </main>
+  <div class="grid-container">
+    <div
+      v-for="photo in photos"
+      :key="photo.id"
+      class="grid-item"
+        @click="toggleModal(photo)">
+        <img :src="photo.urls.regular" class="images-collection" />
+    </div>
+    <!-- <div v-if="showModal">
+      <Modal @close="toggleModal()">
+        <template v-slot:imageDetails>
+          <img :src="photoUrl" alt="name" class="image-modal">
+          <div class="caption">
+            <h6>{{ name }}</h6>
+            <p>{{ location ? location : description }}</p>
+          </div>
+        </template>
+      </Modal>
+    </div> -->
+  </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import Modal from '@/components/Modal.vue';
-import Header from '@/components/Header.vue';
-// import HomeSkeleton from '@/components/HomeSkeleton.vue';
+// import Modal from '@/components/Modal.vue';
 import unsplash from '../api/index';
 
 export default {
@@ -49,14 +31,12 @@ export default {
   data() {
     return {
       photos: [],
-      loading: '',
+
       name: '',
       description: '',
       altDescription: '',
       location: '',
       photoUrl: '',
-      searchValue: '',
-      searchTitle: '',
       showModal: false,
     };
   },
@@ -87,7 +67,7 @@ export default {
         .list({
           page,
           perPage: 10,
-          orderBy: 'latest',
+          orederBy: 'latest',
         })
         .then((res) => {
           const newPhotos = res.response.results;
@@ -96,45 +76,27 @@ export default {
         });
     },
     searchPhotos(query) {
-      this.searchValue = query;
-      this.searchTitle = `Searching for "${this.searchValue}"`;
+      console.log('query parent: ', query);
 
-      setTimeout(() => {
-        // this.fetchPhotos(1);
-        unsplash.search
-          .getPhotos({
-            query,
-            page: 1,
-            perPage: 10,
-          })
-          .then((res) => {
-            const result = res.response.results;
-            this.photos = [...result];
-            this.searchTitle = `Search results for "${this.searchValue}"`;
-          });
-      }, 3000);
+      unsplash.search
+        .getPhotos({
+          query,
+          page: 1,
+          perPage: 10,
+        })
+        .then((res) => {
+          const result = res.response.results;
+          this.photos = [...result];
+        });
     },
   },
   mounted() {
-    setTimeout(() => {
-      this.fetchPhotos(1);
-    }, 2000);
-  },
-  components: {
-    Modal,
-    Header,
-    // HomeSkeleton,
+    this.fetchPhotos(1);
   },
 };
 </script>
 
-<style>
-  .main {
-    /* position: relative; */
-    min-height: 100vh;
-    width: 100%;
-    margin: auto;
-  }
+<style scoped>
   .grid-container {
     margin: auto;
     position: relative;
@@ -152,11 +114,11 @@ export default {
   }
   .images-collection {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    /* padding-top: 100%; */
+    /* height: 100%;
+    object-fit: cover; */
     background-color: #eeeeee;
-    border-radius: 1rem;
-    /* border: 3px solid red; */
+    /* border-radius: 1rem; */
   }
   .images-collection:hover {
     box-shadow: 0 13px 27px -5px

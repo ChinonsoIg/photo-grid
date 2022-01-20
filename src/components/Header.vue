@@ -8,12 +8,14 @@
         placeholder="Search for photo"
       >
     </form>
+    <h5>{{ searchTitle }}</h5>
   </header>
 </template>
 
 <script>
 export default {
   name: 'Header',
+  props: ['searchTitle'],
   data() {
     return {
       query: '',
@@ -21,8 +23,8 @@ export default {
   },
   methods: {
     getQuery() {
+      this.$emit('onsubmit', this.query);
       console.log('q: ', this.query);
-      this.$emit('submit', this.query);
     },
   },
 };
@@ -32,14 +34,15 @@ export default {
 <style scoped>
 header {
   height: 200px;
-  display: grid;
-  place-items: center;
-  background-color: rgba(0, 128, 128, 0.1);
   width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-items: center;
+  align-items: center;
+  padding: 20px 0 0;
+  background-color: rgba(0, 128, 128, 0.1);
 }
 form {
-  position: relative;
-  top: -60px;
   width: 80%;
   margin: 0 auto;
   background: gray;
@@ -47,6 +50,9 @@ form {
   padding: 0;
   border-radius: 10px;
   /* border: 2px solid red; */
+}
+h5 {
+  color: rgb(0, 39, 39);
 }
 input {
   display: block;
@@ -63,15 +69,12 @@ input {
     height: 120px;
   }
   form {
-    position: relative;
-    top: -40px;
     width: 95%;
     margin: 0 auto;
     background: gray;
     text-align: left;
     padding: 0;
     border-radius: 5px;
-    /* border: 2px solid red; */
   }
   input {
     display: block;
