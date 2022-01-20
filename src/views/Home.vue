@@ -1,7 +1,14 @@
 <template>
   <main class="main">
+    <header class="search">
+      <Header @submit="searchPhotos" />
+      <!-- <form action="" @submit.prevent="searchPhotos">
+        <input type="text" v-model="query">
+        <p>{{ query }}</p>
+      </form> -->
+      <p>{{ query }}</p>
+    </header>
     <div class="grid-container" v-if="photos.length">
-      <!-- <h1>Search component here</h1> -->
       <div
         v-for="photo in photos"
         :key="photo.id"
@@ -31,6 +38,7 @@
 <script>
 // @ is an alias to /src
 import Modal from '@/components/Modal.vue';
+import Header from '@/components/Header.vue';
 import unsplash from '../api/index';
 
 export default {
@@ -44,6 +52,7 @@ export default {
       altDescription: '',
       location: '',
       photoUrl: '',
+      // query: '',
       showModal: false,
     };
   },
@@ -77,17 +86,32 @@ export default {
           orederBy: 'latest',
         })
         .then((res) => {
-          // console.log(res.response.results);
           const newPhotos = res.response.results;
           this.photos = [...newPhotos];
         });
     },
+    searchPhotos(query) {
+      // console.log('Submitting the form');
+      console.log('query parent: ', query);
+
+      unsplash.search
+        .getPhotos({
+          query,
+          page: 1,
+          perPage: 10,
+        })
+        .then((res) => {
+          const result = res.response.results;
+          this.photos = [...result];
+        });
+    },
   },
   mounted() {
-    this.fetchPhotos(4);
+    this.fetchPhotos(1);
   },
   components: {
     Modal,
+    Header,
   },
 };
 </script>
@@ -95,13 +119,16 @@ export default {
 <style scoped>
   .main {
     /* position: relative; */
-    height: 100vh;
-    max-width: 900px;
+    min-height: 100vh;
+    width: 100%;
     margin: auto;
     border: 1px solid purple;
   }
   .grid-container {
-    width: 100%;
+    margin: auto;
+    position: relative;
+    top: -100px;
+    max-width: 900px;
     height: 100%;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -109,6 +136,8 @@ export default {
     grid-auto-rows: 3rem;
     padding: 1rem;
     box-sizing: border-box;
+    /* z-index: 5; */
+    /* background: none; */
   }
   .images-collection {
     width: 100%;
@@ -138,17 +167,12 @@ export default {
     grid-row: span 4;
   }
   .caption {
-    position: relative;
-    bottom: 0;
     margin: 20px 0 5px;
     padding: 0 1rem;
-    /* height: 10%; */
-    border: 2px solid red;
   }
   .caption p {
     font-size: small;
     text-align: left;
-    /* margin: ; */
   }
   .caption small {
     font-size: small;
@@ -156,7 +180,7 @@ export default {
   }
   .image-modal {
     width: 100%;
-    height: 400px;
+    height: 420px;
     object-fit: cover;
     border-radius: 0.5rem 0.5rem 0 0;
   }
@@ -178,6 +202,8 @@ export default {
       padding: 1.5rem;
       gap: 2rem;
       grid-auto-rows: 5rem;
+      /* position: relative; */
+      top: -100px;
     }
   }
 
