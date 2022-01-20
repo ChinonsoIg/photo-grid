@@ -13,7 +13,7 @@
         v-for="photo in photos"
         :key="photo.id"
         class="grid-item"
-         @click.alt="toggleModal(photo)">
+         @click="toggleModal(photo)">
           <img :src="photo.urls.full" class="images-collection" />
       </div>
       <div v-if="showModal">
@@ -21,8 +21,8 @@
           <template v-slot:links>
             <img :src="photoUrl" alt="name" class="image-modal">
             <div class="caption">
-              <p>{{ name }}</p>
-              <small><i>{{ location ? location : 'null' }}</i></small>
+              <h6>{{ name }}</h6>
+              <p>{{ location ? location : description }}</p>
             </div>
           </template>
         </Modal>
@@ -121,7 +121,6 @@ export default {
     min-height: 100vh;
     width: 100%;
     margin: auto;
-    border: 1px solid purple;
   }
   .grid-container {
     margin: auto;
@@ -165,17 +164,17 @@ export default {
   .grid-item:nth-child(1) {
     grid-row: span 4;
   }
-  .caption {
-    margin: 20px 0 5px;
-    padding: 0 1rem;
+  .caption p, h6 {
+    margin: 0.2rem 0.4rem;
+    /* border: 1px solid red; */
+  }
+  .caption h6 {
+    text-align: left;
   }
   .caption p {
-    font-size: small;
+    font-size: medium;
     text-align: left;
-  }
-  .caption small {
-    font-size: small;
-    text-align: left;
+    font-style: italic;
   }
   .image-modal {
     width: 100%;

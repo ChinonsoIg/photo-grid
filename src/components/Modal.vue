@@ -1,6 +1,10 @@
 <template>
   <div class="backdrop">
-    <span class="close-modal" @click.self="closeModal">X</span>
+    <span
+      class="close-modal"
+      @click.self="closeModal">
+      X
+    </span>
     <div class="modal">
       <!-- <slot></slot> -->
 
@@ -30,29 +34,35 @@ export default {
     top: 0;
     left: 0;
     position: fixed;
-    background: rgba(0, 0, 0, 0.5);
+    /* background: rgba(0, 0, 0, 0.5); */
+    background: rgba(0, 0, 0, 0.8);
     width: 100%;
     height: 100%;
   }
   .modal {
     box-sizing: border-box;
     width: 60%;
-    /* padding: 20px; */
     margin: 0 auto;
     background: rgb(255, 255, 255);
     border-radius: 0.5rem;
     box-sizing: border-box;
     height: 85vh;
-    /* border: 2px solid brown; */
   }
   .close-modal {
     position: relative;
-    color: red;
-    font-size: larger;
-    font-weight: 700;
     top: 8%;
     right: -40%;
+    margin: auto;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: large;
+    font-weight: 100;
     cursor: pointer;
+    padding: 2px 7px;
+    border-radius: 50%;
+  }
+  .close-modal:hover {
+    color: rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.4);
   }
   @media (max-width: 768px) {
     .modal {
@@ -61,17 +71,11 @@ export default {
       margin: 0 auto;
       background: rgb(255, 255, 255);
       border-radius: 0.5rem;
-      box-sizing: border-box;
-      /* border: 2px solid brown; */
     }
     .close-modal {
-      position: relative;
-      color: red;
       font-size: medium;
-      font-weight: 600;
+      padding: 2px 6px;
       top: 3%;
-      right: -40%;
-      cursor: pointer;
     }
   }
   @media (max-width: 576px) {
@@ -80,6 +84,10 @@ export default {
       padding: 1.5rem;
       gap: 2rem;
       grid-auto-rows: 5rem;
+    }
+    .close-modal {
+      font-size: small;
+      right: -42%;
     }
   }
 
