@@ -22,7 +22,7 @@
             <img :src="photoUrl" alt="name" class="image-modal">
             <div class="caption">
               <p>{{ name }}</p>
-              <small><i>{{ location }}</i></small>
+              <small><i>{{ location ? location : 'null' }}</i></small>
             </div>
           </template>
         </Modal>
@@ -91,7 +91,6 @@ export default {
         });
     },
     searchPhotos(query) {
-      // console.log('Submitting the form');
       console.log('query parent: ', query);
 
       unsplash.search

@@ -91,7 +91,7 @@ input {
   input {
     display: block;
     width: 100%;
-    padding: 5px;
+    padding: 6px;
     border-radius: 5px;
     box-sizing: border-box;
     border: none;

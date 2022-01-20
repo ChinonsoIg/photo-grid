@@ -1,6 +1,6 @@
 <template>
-  <div class="backdrop" @click.self="closeModal">
-    <span class="close-modal" @click="closeModal">X</span>
+  <div class="backdrop">
+    <span class="close-modal" @click.self="closeModal">X</span>
     <div class="modal">
       <!-- <slot></slot> -->
 
@@ -57,21 +57,19 @@ export default {
   @media (max-width: 768px) {
     .modal {
       box-sizing: border-box;
-      width: 80%;
-      /* padding: 20px; */
+      width: 70%;
       margin: 0 auto;
       background: rgb(255, 255, 255);
       border-radius: 0.5rem;
       box-sizing: border-box;
-      height: 70vh;
-      border: 2px solid brown;
+      /* border: 2px solid brown; */
     }
     .close-modal {
       position: relative;
       color: red;
-      font-size: larger;
-      font-weight: 700;
-      top: 8%;
+      font-size: medium;
+      font-weight: 600;
+      top: 3%;
       right: -40%;
       cursor: pointer;
     }
