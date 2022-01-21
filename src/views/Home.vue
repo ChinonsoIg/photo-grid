@@ -6,27 +6,23 @@
         :searchTitle="searchTitle"
       />
     </header>
-    <!-- <section class="grid-container" v-if="!loading">
-      <div
-        v-for="photo in photos"
-        :key="photo.id"
-        class="grid-item"
-         @click="toggleModal(photo)">
-          <img :src="photo.urls.regular" class="images-collection" />
-      </div>
-      <div v-if="showModal">
-        <Modal @close="toggleModal()">
-          <template v-slot:imageDetails>
-            <img :src="photoUrl" alt="name" class="image-modal">
-            <div class="caption">
-              <h6>{{ name }}</h6>
-              <p>{{ location ? location : description }}</p>
-            </div>
-          </template>
-        </Modal>
-      </div>
-    </section> -->
-    <section class="grid-container" v-if="!loading">
+
+    <section v-if="isLoading">
+      <HomeSkeleton />
+    </section>
+
+    <section class="error" v-if="isError">
+      <h3>Oooppss!</h3>
+      <p>{{ isErrorMessage }}</p>
+      <p>Kindly check your network connection and try again</p>
+    </section>
+
+    <section class="no-result" v-if="noResult">
+      <h3>Wrong search term!</h3>
+      <p>Please enter a meaningful city/country name.</p>
+    </section>
+
+    <section class="grid-container" v-else>
       <div
         v-for="photo in photos"
         :key="photo.id"
@@ -47,9 +43,9 @@
       </div>
     </section>
 
-    <section v-else>
+    <!-- <section v-else>
       <HomeSkeleton />
-    </section>
+    </section> -->
   </main>
 </template>
 
@@ -65,7 +61,11 @@ export default {
   data() {
     return {
       photos: [],
-      loading: false,
+      isLoading: false,
+      isError: false,
+      isErrorMessage: '',
+      noResult: false,
+
       name: '',
       description: '',
       altDescription: '',
@@ -99,6 +99,10 @@ export default {
       this.showModal = !this.showModal;
     },
     fetchPhotos(page) {
+      this.isLoading = true;
+      this.isError = false;
+      this.noResult = false;
+
       unsplash.photos
         .list({
           page,
@@ -110,11 +114,30 @@ export default {
           console.log(newPhotos);
           this.photos = [...newPhotos];
           // set loading to false after app has successfully mounted
-          this.loading = false;
+          this.isLoading = false;
+          this.isLoading = true;
+          this.isError = false;
+          this.noResult = false;
+        })
+        .catch((err) => {
+          this.isLoading = false;
+          this.noResult = false;
+          this.isError = true;
+          this.isErrorMessage = err.message;
+        })
+        .finally(() => {
+          this.isLoading = false;
+          if ((this.photos.length === 0) && (!this.isError)) {
+            this.noResult = true;
+          }
         });
     },
     searchPhotos(query) {
-      this.loading = true;
+      this.isLoading = true;
+      this.isLoading = false;
+      this.isError = false;
+      this.noResult = false;
+
       this.searchValue = query;
       this.searchTitle = `Searching for "${this.searchValue}"`;
 
@@ -130,14 +153,25 @@ export default {
             const result = res.response.results;
             this.photos = [...result];
             this.searchTitle = `Search results for "${this.searchValue}"`;
-            this.loading = false;
+            this.isLoading = false;
+          })
+          .catch((err) => {
+            this.isLoading = false;
+            this.isError = true;
+            this.isErrorMessage = err.message;
+          })
+          .finally(() => {
+            this.isLoading = false;
+            if ((this.photos.length === 0) && (!this.isError)) {
+              this.noResult = true;
+            }
           });
       }, 3000);
     },
   },
   mounted() {
     // set loading to true when the app is loading
-    this.loading = true;
+    this.isLoading = true;
     setTimeout(() => {
       this.fetchPhotos(1);
     }, 2000);
@@ -212,6 +246,10 @@ export default {
     max-height: 400px;
     object-fit: cover;
     border-radius: 0.5rem 0.5rem 0 0;
+  }
+  .error, .no-result {
+    display: grid;
+    place-items: center;
   }
 
 </style>
