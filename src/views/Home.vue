@@ -150,7 +150,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
   main {
     min-height: 100vh;
     overflow-y: visible;
