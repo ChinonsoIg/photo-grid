@@ -11,36 +11,38 @@
       <HomeSkeleton />
     </section>
 
-    <section class="error" v-if="isError">
-      <h3>Oooppss!</h3>
-      <p>{{ isErrorMessage }}</p>
-      <p>Kindly check your network connection and try again</p>
-    </section>
+    <section v-else>
+      <section class="error" v-if="isError">
+        <h3>Oooppss!</h3>
+        <p>{{ isErrorMessage }}</p>
+        <p>Kindly check your network connection and try again</p>
+      </section>
 
-    <section class="no-result" v-if="noResult">
-      <h3>Wrong search term!</h3>
-      <p>Please enter a meaningful city/country name.</p>
-    </section>
+      <section class="no-result" v-else-if="noResult">
+        <h3>Wrong search term!</h3>
+        <p>Please enter a meaningful city/country name.</p>
+      </section>
 
-    <section class="grid-container" v-else>
-      <div
-        v-for="photo in photos"
-        :key="photo.id"
-        class="grid-item"
-         @click="toggleModal(photo)">
-          <img :src="photo.urls.regular" class="img-collection" />
-      </div>
-      <div v-if="showModal">
-        <Modal @close="toggleModal()">
-          <template v-slot:imageDetails>
-            <img :src="photoUrl" alt="name" class="image-modal">
-            <div class="caption">
-              <h6>{{ name }}</h6>
-              <p>{{ location ? location : description }}</p>
-            </div>
-          </template>
-        </Modal>
-      </div>
+      <section class="grid-container" v-else>
+        <div
+          v-for="photo in photos"
+          :key="photo.id"
+          class="grid-item"
+          @click="toggleModal(photo)">
+            <img :src="photo.urls.regular" class="img-collection" />
+        </div>
+        <div v-if="showModal">
+          <Modal @close="toggleModal()">
+            <template v-slot:imageDetails>
+              <img :src="photoUrl" alt="name" class="image-modal">
+              <div class="caption">
+                <h6>{{ name }}</h6>
+                <p>{{ location ? location : description }}</p>
+              </div>
+            </template>
+          </Modal>
+        </div>
+      </section>
     </section>
 
     <!-- <section v-else>
@@ -115,7 +117,6 @@ export default {
           this.photos = [...newPhotos];
           // set loading to false after app has successfully mounted
           this.isLoading = false;
-          this.isLoading = true;
           this.isError = false;
           this.noResult = false;
         })
@@ -134,7 +135,6 @@ export default {
     },
     searchPhotos(query) {
       this.isLoading = true;
-      this.isLoading = false;
       this.isError = false;
       this.noResult = false;
 
@@ -154,9 +154,12 @@ export default {
             this.photos = [...result];
             this.searchTitle = `Search results for "${this.searchValue}"`;
             this.isLoading = false;
+            this.noResult = false;
+            this.isError = false;
           })
           .catch((err) => {
             this.isLoading = false;
+            this.noResult = false;
             this.isError = true;
             this.isErrorMessage = err.message;
           })
