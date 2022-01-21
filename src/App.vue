@@ -16,10 +16,6 @@ export default {
 <style>
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 
-* {
-  box-sizing: border-box;
-}
-
 html { font-size: 22px; }
 
 body {

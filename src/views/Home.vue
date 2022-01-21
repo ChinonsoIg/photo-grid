@@ -167,7 +167,6 @@ export default {
   @media screen and (max-width: 992px) {
     .grid-container {
       column-count: 2;
-      /* box-sizing: border-box; */
       padding: 0 15px;
     }
   }
@@ -185,16 +184,16 @@ export default {
   .img-collection {
     width: 100%;
     border-radius: 10px;
-    background-color: #eeeeee;
+    /* background-color: #eeeeee; */
   }
   .img-collection:hover {
     cursor: pointer;
     box-shadow: 0 13px 27px -5px
-      hsla(240, 30.1%, 28%, 0.25),
+      var(--hover-shades-1),
       0 8px 16px -8px
-      hsla(0, 0%, 0%, 0.3),
+      var(--hover-shades-2),
       0 -6px 16px -6px
-      hsla(0, 0%, 0%, 0.03);
+      var(--hover-shades-3);
   }
   .caption p, h6 {
     margin: 0.2rem 0.4rem;
@@ -213,7 +212,6 @@ export default {
     max-height: 400px;
     object-fit: cover;
     border-radius: 0.5rem 0.5rem 0 0;
-    background-color: #eeeeee;
   }
 
 </style>

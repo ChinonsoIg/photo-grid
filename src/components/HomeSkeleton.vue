@@ -1,45 +1,45 @@
 <template>
   <div class="grid-container">
-      <div class="skeleton-collection skeleton">
+      <div class="skeleton-collection">
         <div></div>
         <div class="skeleton-text-container">
-          <div class="skeletons skeleton-text"></div>
-          <div class="skeletons skeleton-text"></div>
+          <div class="skeleton-text"></div>
+          <div class="skeleton-text"></div>
         </div>
       </div>
-      <div class="skeleton-collection skeleton">
+      <div class="skeleton-collection">
         <div></div>
         <div class="skeleton-text-container">
-          <div class="skeletons skeleton-text"></div>
-          <div class="skeletons skeleton-text"></div>
+          <div class="skeleton-text"></div>
+          <div class="skeleton-text"></div>
         </div>
       </div>
-      <div class="skeleton-collection skeleton">
+      <div class="skeleton-collection">
         <div></div>
         <div class="skeleton-text-container">
-          <div class="skeletons skeleton-text"></div>
-          <div class="skeletons skeleton-text"></div>
+          <div class="skeleton-text"></div>
+          <div class="skeleton-text"></div>
         </div>
       </div>
-      <div class="skeleton-collection skeleton">
+      <div class="skeleton-collection">
         <div></div>
         <div class="skeleton-text-container">
-          <div class="skeletons skeleton-text"></div>
-          <div class="skeletons skeleton-text"></div>
+          <div class="skeleton-text"></div>
+          <div class="skeleton-text"></div>
         </div>
       </div>
-      <div class="skeleton-collection skeleton">
+      <div class="skeleton-collection">
         <div></div>
         <div class="skeleton-text-container">
-          <div class="skeletons skeleton-text"></div>
-          <div class="skeletons skeleton-text"></div>
+          <div class="skeleton-text"></div>
+          <div class="skeleton-text"></div>
         </div>
       </div>
-      <div class="skeleton-collection skeleton">
+      <div class="skeleton-collection">
         <div></div>
         <div class="skeleton-text-container">
-          <div class="skeletons skeleton-text"></div>
-          <div class="skeletons skeleton-text"></div>
+          <div class="skeleton-text"></div>
+          <div class="skeleton-text"></div>
         </div>
       </div>
   </div>
@@ -142,10 +142,10 @@ export default {
   }
   @keyframes skeleton-collection-loading {
     0% {
-      background-color: hsl(200, 20%, 85%);
+      background-color: var(--skeleton-85);
     }
     100% {
-      background-color: hsl(200, 20%, 95%);
+      background-color: var(--skeleton-95);
     }
   }
 
@@ -169,27 +169,14 @@ export default {
   }
   @keyframes skeleton-text-loading {
     0% {
-      background-color: hsl(200, 20%, 50%);
+      background-color: var(--skeleton-50);
     }
     100% {
-      background-color: hsl(200, 20%, 80%);
+      background-color: var(--skeleton-80);
     }
   }
 
-  /* .skeleton {
-    opacity: .7;
-    animation: skeleton-loading 1s linear infinite alternate;
-  }
-  @keyframes skeleton-loading {
-    0% {
-      background-color: hsl(200, 20%, 85%);
-    }
-    100% {
-      background-color: hsl(200, 20%, 95%);
-    }
-  } */
-
-  .skeletons {
+  /* .skeletons {
     opacity: .7;
     animation: skeletons-loading 1s linear infinite alternate;
   }
@@ -200,5 +187,5 @@ export default {
     100% {
       background-color: hsl(200, 20%, 80%);
     }
-  }
+  } */
 </style>

@@ -32,15 +32,15 @@ export default {
     top: 0;
     left: 0;
     position: fixed;
-    background: rgba(0, 0, 0, 0.8);
+    background: var(--backdrop);
     width: 100%;
     height: 100%;
   }
   .modal {
     width: 60%;
-    height: 85vh;
-    margin: 0 auto;
-    background: rgb(255, 255, 255);
+    height: auto;
+    margin: 20px auto;
+    background: var(--white);
     border-radius: 0.5rem;
   }
   .close-modal {
@@ -48,7 +48,7 @@ export default {
     top: 8%;
     right: -40%;
     margin: auto;
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--white-5);
     font-size: large;
     font-weight: 300;
     cursor: pointer;
@@ -56,16 +56,13 @@ export default {
     border-radius: 50%;
   }
   .close-modal:hover {
-    color: rgba(255, 255, 255, 0.6);
-    background: rgba(255, 255, 255, 0.4);
+    color: var(--white-5);
+    background: var(--white-5);
   }
   @media (max-width: 992px) {
     .modal {
       width: 70%;
-      height: auto;
       margin: 40px auto;
-      background: rgb(255, 255, 255);
-      border-radius: 0.5rem;
     }
     .close-modal {
       font-size: medium;

@@ -40,19 +40,19 @@ header {
   justify-items: center;
   align-items: center;
   padding: 20px 0 0;
-  background-color: rgba(0, 128, 128, 0.1);
+  background-color: var(--tealLight);
 }
 form {
   width: 80%;
   margin: 0 auto;
-  background: gray;
+  background: var(--gray);
   text-align: left;
   padding: 0;
   border-radius: 10px;
   /* border: 2px solid red; */
 }
 h5 {
-  color: rgb(0, 39, 39);
+  color: var(--tealDark);
 }
 input {
   display: block;
@@ -70,10 +70,6 @@ input {
   }
   form {
     width: 95%;
-    margin: 0 auto;
-    background: gray;
-    text-align: left;
-    padding: 0;
     border-radius: 5px;
   }
   input {
