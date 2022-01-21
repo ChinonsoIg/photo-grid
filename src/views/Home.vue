@@ -1,16 +1,12 @@
 <template>
-  <main class="main">
+  <main>
     <header class="search">
       <Header
         v-on:onsubmit="searchPhotos"
         :searchTitle="searchTitle"
       />
-      <!-- <form action="" @submit.prevent="searchPhotos">
-        <input type="text" v-model="query">
-        <p>{{ query }}</p>
-      </form> -->
     </header>
-    <section class="grid-container" v-if="photos.length">
+    <!-- <section class="grid-container" v-if="!loading">
       <div
         v-for="photo in photos"
         :key="photo.id"
@@ -29,10 +25,30 @@
           </template>
         </Modal>
       </div>
+    </section> -->
+    <section class="grid-container" v-if="!loading">
+      <div
+        v-for="photo in photos"
+        :key="photo.id"
+        class="grid-item"
+         @click="toggleModal(photo)">
+          <img :src="photo.urls.regular" class="img-collection" />
+      </div>
+      <div v-if="showModal">
+        <Modal @close="toggleModal()">
+          <template v-slot:imageDetails>
+            <img :src="photoUrl" alt="name" class="image-modal">
+            <div class="caption">
+              <h6>{{ name }}</h6>
+              <p>{{ location ? location : description }}</p>
+            </div>
+          </template>
+        </Modal>
+      </div>
     </section>
 
     <section v-else>
-      Loading ....
+      <HomeSkeleton />
     </section>
   </main>
 </template>
@@ -41,7 +57,7 @@
 // @ is an alias to /src
 import Modal from '@/components/Modal.vue';
 import Header from '@/components/Header.vue';
-// import HomeSkeleton from '@/components/HomeSkeleton.vue';
+import HomeSkeleton from '@/components/HomeSkeleton.vue';
 import unsplash from '../api/index';
 
 export default {
@@ -49,7 +65,7 @@ export default {
   data() {
     return {
       photos: [],
-      loading: '',
+      loading: false,
       name: '',
       description: '',
       altDescription: '',
@@ -93,9 +109,12 @@ export default {
           const newPhotos = res.response.results;
           console.log(newPhotos);
           this.photos = [...newPhotos];
+          // set loading to false after app has successfully mounted
+          this.loading = false;
         });
     },
     searchPhotos(query) {
+      this.loading = true;
       this.searchValue = query;
       this.searchTitle = `Searching for "${this.searchValue}"`;
 
@@ -111,11 +130,14 @@ export default {
             const result = res.response.results;
             this.photos = [...result];
             this.searchTitle = `Search results for "${this.searchValue}"`;
+            this.loading = false;
           });
       }, 3000);
     },
   },
   mounted() {
+    // set loading to true when the app is loading
+    this.loading = true;
     setTimeout(() => {
       this.fetchPhotos(1);
     }, 2000);
@@ -123,42 +145,50 @@ export default {
   components: {
     Modal,
     Header,
-    // HomeSkeleton,
+    HomeSkeleton,
   },
 };
 </script>
 
-<style>
-  .main {
-    /* position: relative; */
+<style scoped>
+  main {
     min-height: 100vh;
+    overflow-y: visible;
     width: 100%;
-    margin: auto;
+    margin: 0 auto;
   }
+
   .grid-container {
-    margin: auto;
-    position: relative;
-    top: -100px;
-    max-width: 900px;
-    height: 100%;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-    grid-auto-rows: 3rem;
-    padding: 1rem;
-    box-sizing: border-box;
-    /* z-index: 5; */
-    /* background: none; */
+    column-count: 3;
+    margin: -60px auto;
+    max-width: 800px;
   }
-  .images-collection {
+  /* screen size 992px and below */
+  @media screen and (max-width: 992px) {
+    .grid-container {
+      column-count: 2;
+      /* box-sizing: border-box; */
+      padding: 0 15px;
+    }
+  }
+  /* screen size 576px and below */
+  @media  (max-width: 576px) {
+    .grid-container {
+      column-count: 1;
+    }
+  }
+
+  .grid-item {
+    margin-bottom: 15px;
+  }
+
+  .img-collection {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    border-radius: 10px;
     background-color: #eeeeee;
-    border-radius: 1rem;
-    /* border: 3px solid red; */
   }
-  .images-collection:hover {
+  .img-collection:hover {
+    cursor: pointer;
     box-shadow: 0 13px 27px -5px
       hsla(240, 30.1%, 28%, 0.25),
       0 8px 16px -8px
@@ -166,21 +196,9 @@ export default {
       0 -6px 16px -6px
       hsla(0, 0%, 0%, 0.03);
   }
-  .grid-item {
-    grid-row: span 6;
-    border-radius: 1rem;
-    cursor: pointer;
-    outline: none;
-  }
-  .grid-item:nth-child(odd) {
-    grid-row: span 5;
-  }
-  .grid-item:nth-child(1) {
-    grid-row: span 4;
-  }
   .caption p, h6 {
     margin: 0.2rem 0.4rem;
-    /* border: 1px solid red; */
+    padding-bottom: 0.4rem;
   }
   .caption h6 {
     text-align: left;
@@ -192,30 +210,10 @@ export default {
   }
   .image-modal {
     width: 100%;
-    height: 420px;
+    max-height: 400px;
     object-fit: cover;
     border-radius: 0.5rem 0.5rem 0 0;
-  }
-
-  @media (max-width: 992px) {
-    .grid-container {
-      gap: 1rem;
-      grid-auto-rows: 2.5rem;
-      grid-template-columns: repeat(2, 1fr);
-      padding: 1rem;
-    }
-    .grid-item {
-      grid-row: span 6;
-    }
-  }
-  @media (max-width: 576px) {
-    .grid-container {
-      grid-template-columns: repeat(1, 1fr);
-      padding: 1.5rem;
-      gap: 2rem;
-      grid-auto-rows: 5rem;
-      top: -100px;
-    }
+    background-color: #eeeeee;
   }
 
 </style>

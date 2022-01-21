@@ -17,14 +17,11 @@ export default {
 <style>
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 
-html { font-size: 22px; }
-
-.skeleton {
-  z-index: 5;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+* {
+  box-sizing: border-box;
 }
+
+html { font-size: 22px; }
 
 body {
   font-family: 'Roboto', sans-serif;

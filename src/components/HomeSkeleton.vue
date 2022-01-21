@@ -1,23 +1,40 @@
 <template>
-  <div class="grid-container">
-    <div
-      v-for="photo in photos"
-      :key="photo.id"
-      class="grid-item"
-        @click="toggleModal(photo)">
-        <img :src="photo.urls.regular" class="images-collection" />
-    </div>
-    <!-- <div v-if="showModal">
-      <Modal @close="toggleModal()">
-        <template v-slot:imageDetails>
-          <img :src="photoUrl" alt="name" class="image-modal">
-          <div class="caption">
-            <h6>{{ name }}</h6>
-            <p>{{ location ? location : description }}</p>
-          </div>
-        </template>
-      </Modal>
-    </div> -->
+  <div class="wrapper">
+      <div class="skeleton-collection skeleton">
+        <div></div>
+        <div class="skeleton-text-container">
+          <div class="skeletons skeleton-text"></div>
+          <div class="skeletons skeleton-text"></div>
+        </div>
+      </div>
+      <div class="skeleton-collection skeleton">
+        <div></div>
+        <div class="skeleton-text-container">
+          <div class="skeletons skeleton-text"></div>
+          <div class="skeletons skeleton-text"></div>
+        </div>
+      </div>
+      <div class="skeleton-collection skeleton">
+        <div></div>
+        <div class="skeleton-text-container">
+          <div class="skeletons skeleton-text"></div>
+          <div class="skeletons skeleton-text"></div>
+        </div>
+      </div>
+      <div class="skeleton-collection skeleton">
+        <div></div>
+        <div class="skeleton-text-container">
+          <div class="skeletons skeleton-text"></div>
+          <div class="skeletons skeleton-text"></div>
+        </div>
+      </div>
+      <!-- <div class="skeleton-collection skeleton">
+        <div></div>
+        <div class="skeleton-text-container">
+          <div class="skeletons skeleton-text"></div>
+          <div class="skeletons skeleton-text"></div>
+        </div>
+      </div> -->
   </div>
 </template>
 
@@ -97,87 +114,86 @@ export default {
 </script>
 
 <style scoped>
-  .grid-container {
-    margin: auto;
-    position: relative;
-    top: -100px;
+  .wrapper {
     max-width: 900px;
-    height: 100%;
+    margin: -60px auto;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-    grid-auto-rows: 3rem;
-    padding: 1rem;
-    box-sizing: border-box;
-    /* z-index: 5; */
-    /* background: none; */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 10px;
   }
-  .images-collection {
-    width: 100%;
-    /* padding-top: 100%; */
-    /* height: 100%;
-    object-fit: cover; */
-    background-color: #eeeeee;
-    /* border-radius: 1rem; */
+  .skeleton-collection {
+    height: 300px;
+    min-width: 200px;
+    margin: .4rem;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    border: 1px solid red;
   }
-  .images-collection:hover {
-    box-shadow: 0 13px 27px -5px
-      hsla(240, 30.1%, 28%, 0.25),
-      0 8px 16px -8px
-      hsla(0, 0%, 0%, 0.3),
-      0 -6px 16px -6px
-      hsla(0, 0%, 0%, 0.03);
+  .skeleton {
+    opacity: .7;
+    animation: skeleton-loading 1s linear infinite alternate;
   }
-  .grid-item {
-    grid-row: span 6;
-    border-radius: 1rem;
-    cursor: pointer;
-    outline: none;
-  }
-  .grid-item:nth-child(odd) {
-    grid-row: span 5;
-  }
-  .grid-item:nth-child(1) {
-    grid-row: span 4;
-  }
-  .caption p, h6 {
-    margin: 0.2rem 0.4rem;
-    /* border: 1px solid red; */
-  }
-  .caption h6 {
-    text-align: left;
-  }
-  .caption p {
-    font-size: medium;
-    text-align: left;
-    font-style: italic;
-  }
-  .image-modal {
-    width: 100%;
-    height: 420px;
-    object-fit: cover;
-    border-radius: 0.5rem 0.5rem 0 0;
-  }
-
-  @media (max-width: 992px) {
-    .grid-container {
-      gap: 1rem;
-      grid-auto-rows: 2.5rem;
-      grid-template-columns: repeat(2, 1fr);
-      padding: 1rem;
+  @keyframes skeleton-loading {
+    0% {
+      background-color: hsl(200, 20%, 85%);
     }
-    .grid-item {
-      grid-row: span 6;
-    }
-  }
-  @media (max-width: 576px) {
-    .grid-container {
-      grid-template-columns: repeat(1, 1fr);
-      padding: 1.5rem;
-      gap: 2rem;
-      grid-auto-rows: 5rem;
-      top: -100px;
+    100% {
+      background-color: hsl(200, 20%, 95%);
     }
   }
 
+  .skeletons {
+    opacity: .7;
+    animation: skeletons-loading 1s linear infinite alternate;
+  }
+  @keyframes skeletons-loading {
+    0% {
+      background-color: hsl(200, 20%, 50%);
+    }
+    100% {
+      background-color: hsl(200, 20%, 80%);
+    }
+  }
+
+  .skeleton-text-container {
+    width: 196px;
+    margin: 0 auto;
+  }
+  .skeleton-text {
+    width: 98%;
+    height: .5rem;
+    margin-bottom: .25rem;
+    border-radius: .125rem;
+  }
+  .skeleton-text:last-child {
+    width: 60%;
+  }
+
+  .skeleton {
+    opacity: .7;
+    animation: skeleton-loading 1s linear infinite alternate;
+  }
+  @keyframes skeleton-loading {
+    0% {
+      background-color: hsl(200, 20%, 85%);
+    }
+    100% {
+      background-color: hsl(200, 20%, 95%);
+    }
+  }
+
+  .skeletons {
+    opacity: .7;
+    animation: skeletons-loading 1s linear infinite alternate;
+  }
+  @keyframes skeletons-loading {
+    0% {
+      background-color: hsl(200, 20%, 50%);
+    }
+    100% {
+      background-color: hsl(200, 20%, 80%);
+    }
+  }
 </style>
