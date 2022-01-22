@@ -64,7 +64,7 @@ export default {
     .close-modal {
       font-size: large;
       padding: 2px 6px;
-      /* top: 6%; */
+      top: 12%;
     }
   }
   @media (max-width: 576px) {
