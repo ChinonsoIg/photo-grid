@@ -1,121 +1,61 @@
 <template>
   <div class="grid-container">
-      <div class="skeleton-collection">
-        <div></div>
-        <div class="skeleton-text-container">
-          <div class="skeleton-text"></div>
-          <div class="skeleton-text"></div>
-        </div>
+    <div class="skeleton-collection">
+      <div></div>
+      <div class="skeleton-text-container">
+        <div class="skeleton-text"></div>
+        <div class="skeleton-text"></div>
       </div>
-      <div class="skeleton-collection">
-        <div></div>
-        <div class="skeleton-text-container">
-          <div class="skeleton-text"></div>
-          <div class="skeleton-text"></div>
-        </div>
+    </div>
+    <div class="skeleton-collection">
+      <div></div>
+      <div class="skeleton-text-container">
+        <div class="skeleton-text"></div>
+        <div class="skeleton-text"></div>
       </div>
-      <div class="skeleton-collection">
-        <div></div>
-        <div class="skeleton-text-container">
-          <div class="skeleton-text"></div>
-          <div class="skeleton-text"></div>
-        </div>
+    </div>
+    <div class="skeleton-collection">
+      <div></div>
+      <div class="skeleton-text-container">
+        <div class="skeleton-text"></div>
+        <div class="skeleton-text"></div>
       </div>
-      <div class="skeleton-collection">
-        <div></div>
-        <div class="skeleton-text-container">
-          <div class="skeleton-text"></div>
-          <div class="skeleton-text"></div>
-        </div>
+    </div>
+    <div class="skeleton-collection">
+      <div></div>
+      <div class="skeleton-text-container">
+        <div class="skeleton-text"></div>
+        <div class="skeleton-text"></div>
       </div>
-      <div class="skeleton-collection">
-        <div></div>
-        <div class="skeleton-text-container">
-          <div class="skeleton-text"></div>
-          <div class="skeleton-text"></div>
-        </div>
+    </div>
+    <div class="skeleton-collection">
+      <div></div>
+      <div class="skeleton-text-container">
+        <div class="skeleton-text"></div>
+        <div class="skeleton-text"></div>
       </div>
-      <div class="skeleton-collection">
-        <div></div>
-        <div class="skeleton-text-container">
-          <div class="skeleton-text"></div>
-          <div class="skeleton-text"></div>
-        </div>
+    </div>
+    <div class="skeleton-collection">
+      <div></div>
+      <div class="skeleton-text-container">
+        <div class="skeleton-text"></div>
+        <div class="skeleton-text"></div>
       </div>
+    </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 // import Modal from '@/components/Modal.vue';
-import unsplash from '../config/index';
+// import unsplash from '../config/index';
 
 export default {
-  name: 'Home',
-  data() {
-    return {
-      photos: [],
-
-      name: '',
-      description: '',
-      altDescription: '',
-      location: '',
-      photoUrl: '',
-      showModal: false,
-    };
-  },
+  name: 'HomeSkeleton',
   methods: {
-    toggleModal(photo) {
-      if (!photo) {
-        this.showModal = !this.showModal;
-        return;
-      }
-      const {
-        description,
-        // eslint-disable-next-line camelcase
-        alt_description,
-        user: { name, location },
-        urls: { regular },
-      } = photo;
-
-      this.name = name;
-      this.description = description;
-      // eslint-disable-next-line camelcase
-      this.altDescription = alt_description;
-      this.location = location;
-      this.photoUrl = regular;
-      this.showModal = !this.showModal;
+    populateDiv(e) {
+      console.log(e);
     },
-    fetchPhotos(page) {
-      unsplash.photos
-        .list({
-          page,
-          perPage: 10,
-          orederBy: 'latest',
-        })
-        .then((res) => {
-          const newPhotos = res.response.results;
-          console.log(newPhotos);
-          this.photos = [...newPhotos];
-        });
-    },
-    searchPhotos(query) {
-      console.log('query parent: ', query);
-
-      unsplash.search
-        .getPhotos({
-          query,
-          page: 1,
-          perPage: 10,
-        })
-        .then((res) => {
-          const result = res.response.results;
-          this.photos = [...result];
-        });
-    },
-  },
-  mounted() {
-    this.fetchPhotos(1);
   },
 };
 </script>

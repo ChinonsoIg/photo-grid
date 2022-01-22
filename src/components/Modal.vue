@@ -7,10 +7,7 @@
     </span>
     <div class="modal">
       <!-- Named slot -->
-      <!-- <div class="actions"> -->
-        <slot name="imageDetails"></slot>
-      <!-- </div> -->
-
+      <slot name="imageDetails"></slot>
     </div>
   </div>
 </template>
@@ -39,7 +36,7 @@ export default {
   .modal {
     width: 60%;
     height: auto;
-    margin: 20px auto;
+    margin: 60px auto;
     background: var(--white);
     border-radius: 0.5rem;
   }
@@ -62,12 +59,12 @@ export default {
   @media (max-width: 992px) {
     .modal {
       width: 70%;
-      margin: 40px auto;
+      /* margin: 60px auto; */
     }
     .close-modal {
-      font-size: medium;
+      font-size: large;
       padding: 2px 6px;
-      top: 3%;
+      /* top: 6%; */
     }
   }
   @media (max-width: 576px) {
@@ -75,8 +72,8 @@ export default {
       width: 80%;
     }
     .close-modal {
-      font-size: small;
-      right: -42%;
+      font-size: medium;
+      right: -43%;
     }
   }
 

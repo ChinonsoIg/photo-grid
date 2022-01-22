@@ -4,6 +4,7 @@
       <Header
         v-on:onsubmit="searchPhotos"
         :searchTitle="searchTitle"
+        :searchValue="searchValue"
       />
     </header>
 
@@ -138,8 +139,8 @@ export default {
       this.isError = false;
       this.noResult = false;
 
-      this.searchValue = query;
-      this.searchTitle = `Searching for "${this.searchValue}"`;
+      this.searchValue = `"${query}"`;
+      this.searchTitle = 'Searching for ';
 
       setTimeout(() => {
         // this.fetchPhotos(1);
@@ -152,7 +153,7 @@ export default {
           .then((res) => {
             const result = res.response.results;
             this.photos = [...result];
-            this.searchTitle = `Search results for "${this.searchValue}"`;
+            this.searchTitle = 'Search results for ';
             this.isLoading = false;
             this.noResult = false;
             this.isError = false;
