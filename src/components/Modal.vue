@@ -64,6 +64,7 @@ export default {
     .close-modal {
       font-size: large;
       padding: 2px 6px;
+      position: relative;
       top: 12%;
     }
   }
