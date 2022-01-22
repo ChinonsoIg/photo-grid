@@ -42,7 +42,7 @@ export default {
   }
   .close-modal {
     position: relative;
-    top: 8%;
+    top: 55px;
     right: -40%;
     /* margin: auto; */
     color: var(--white-5);
@@ -64,7 +64,7 @@ export default {
     .close-modal {
       font-size: large;
       padding: 2px 6px;
-      top: 10%;
+      top: 50px;
     }
   }
   @media (max-width: 576px) {
