@@ -46,15 +46,12 @@
 </template>
 
 <script>
-// @ is an alias to /src
-// import Modal from '@/components/Modal.vue';
-// import unsplash from '../config/index';
 
 export default {
   name: 'HomeSkeleton',
   methods: {
-    populateDiv(e) {
-      console.log(e);
+    populateDiv(div) {
+      console.log(div);
     },
   },
 };
@@ -116,16 +113,4 @@ export default {
     }
   }
 
-  /* .skeletons {
-    opacity: .7;
-    animation: skeletons-loading 1s linear infinite alternate;
-  }
-  @keyframes skeletons-loading {
-    0% {
-      background-color: hsl(200, 20%, 50%);
-    }
-    100% {
-      background-color: hsl(200, 20%, 80%);
-    }
-  } */
 </style>

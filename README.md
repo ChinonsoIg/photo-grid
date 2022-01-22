@@ -1,4 +1,5 @@
 # photo-grid
+Checkout the live site [here](https://unsplash-photo-grid.netlify.app/)
 
 ## Project setup
 ```

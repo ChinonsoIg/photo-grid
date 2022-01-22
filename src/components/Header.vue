@@ -8,7 +8,10 @@
         placeholder="Search for photo"
       >
     </form>
-    <h5>{{ searchTitle }} <span class="lightText">{{ searchValue }}</span></h5>
+    <h5>
+      {{ searchTitle }}
+      <span class="lightText">{{ searchValue }}</span>
+    </h5>
   </header>
 </template>
 

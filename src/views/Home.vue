@@ -1,6 +1,6 @@
 <template>
   <main>
-    <header class="search">
+    <header>
       <Header
         v-on:onsubmit="searchPhotos"
         :searchTitle="searchTitle"
@@ -46,14 +46,10 @@
       </section>
     </section>
 
-    <!-- <section v-else>
-      <HomeSkeleton />
-    </section> -->
   </main>
 </template>
 
 <script>
-// @ is an alias to /src
 import Modal from '@/components/Modal.vue';
 import Header from '@/components/Header.vue';
 import HomeSkeleton from '@/components/HomeSkeleton.vue';
@@ -71,7 +67,6 @@ export default {
 
       name: '',
       description: '',
-      altDescription: '',
       location: '',
       photoUrl: '',
       searchValue: '',
@@ -87,16 +82,12 @@ export default {
       }
       const {
         description,
-        // eslint-disable-next-line camelcase
-        alt_description,
         user: { name, location },
         urls: { regular },
       } = photo;
 
       this.name = name;
       this.description = description;
-      // eslint-disable-next-line camelcase
-      this.altDescription = alt_description;
       this.location = location;
       this.photoUrl = regular;
       this.showModal = !this.showModal;
@@ -222,7 +213,6 @@ export default {
   .img-collection {
     width: 100%;
     border-radius: 10px;
-    /* background-color: #eeeeee; */
   }
   .img-collection:hover {
     cursor: pointer;

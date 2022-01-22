@@ -44,10 +44,9 @@ export default {
     position: relative;
     top: 55px;
     right: -40%;
-    /* margin: auto; */
     color: var(--white-5);
     font-size: large;
-    font-weight: 300;
+    font-weight: 400;
     cursor: pointer;
     padding: 2px 7px;
     border-radius: 50%;
@@ -59,7 +58,6 @@ export default {
   @media (max-width: 992px) {
     .modal {
       width: 70%;
-      /* margin: 60px auto; */
     }
     .close-modal {
       font-size: large;
