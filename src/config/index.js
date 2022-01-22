@@ -1,6 +1,6 @@
 import { createApi } from 'unsplash-js';
 
-const APP_ACCESS_KEY = 'VjreqcBzdgxFD_yx9o5XSAafl50yWgBrpx5twK5cWtw';
+const APP_ACCESS_KEY = process.env.VUE_APP_ACCESSKEY;
 
 const unsplash = createApi({
   accessKey: APP_ACCESS_KEY,

@@ -48,7 +48,7 @@
 <script>
 // @ is an alias to /src
 // import Modal from '@/components/Modal.vue';
-import unsplash from '../api/index';
+import unsplash from '../config/index';
 
 export default {
   name: 'Home',

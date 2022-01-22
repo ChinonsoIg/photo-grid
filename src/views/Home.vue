@@ -56,7 +56,7 @@
 import Modal from '@/components/Modal.vue';
 import Header from '@/components/Header.vue';
 import HomeSkeleton from '@/components/HomeSkeleton.vue';
-import unsplash from '../api/index';
+import unsplash from '../config/index';
 
 export default {
   name: 'Home',
