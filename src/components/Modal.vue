@@ -44,7 +44,7 @@ export default {
     position: relative;
     top: 8%;
     right: -40%;
-    margin: auto;
+    /* margin: auto; */
     color: var(--white-5);
     font-size: large;
     font-weight: 300;
@@ -64,8 +64,7 @@ export default {
     .close-modal {
       font-size: large;
       padding: 2px 6px;
-      position: relative;
-      top: 12%;
+      top: 10%;
     }
   }
   @media (max-width: 576px) {
