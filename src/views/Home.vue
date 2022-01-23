@@ -3,6 +3,7 @@
     <header>
       <Header
         v-on:onsubmit="searchPhotos"
+        v-on:onreset="resetSearch"
         :searchTitle="searchTitle"
         :searchValue="searchValue"
       />
@@ -26,11 +27,17 @@
 
       <section class="grid-container" v-else>
         <div
+          class="grid-item"
           v-for="photo in photos"
           :key="photo.id"
-          class="grid-item"
           @click="toggleModal(photo)">
-            <img :src="photo.urls.regular" class="img-collection" />
+          <img
+            :src="photo.urls.regular"
+            class="img-collection" />
+          <div class="overlay-text">
+            <h6>{{ photo.user.name }}</h6>
+            <small>{{ photo.user.location }}</small>
+          </div>
         </div>
         <div v-if="showModal">
           <Modal @close="toggleModal()">
@@ -38,7 +45,7 @@
               <img :src="photoUrl" alt="name" class="image-modal">
               <div class="caption">
                 <h6>{{ name }}</h6>
-                <p>{{ location ? location : description }}</p>
+                <p>{{ location }}</p>
               </div>
             </template>
           </Modal>
@@ -66,11 +73,11 @@ export default {
       noResult: false,
 
       name: '',
-      description: '',
       location: '',
       photoUrl: '',
       searchValue: '',
       searchTitle: '',
+      emptyString: '',
       showModal: false,
     };
   },
@@ -81,13 +88,11 @@ export default {
         return;
       }
       const {
-        description,
         user: { name, location },
         urls: { regular },
       } = photo;
 
       this.name = name;
-      this.description = description;
       this.location = location;
       this.photoUrl = regular;
       this.showModal = !this.showModal;
@@ -97,10 +102,11 @@ export default {
       this.isError = false;
       this.noResult = false;
 
-      unsplash.photos
-        .list({
+      unsplash.search
+        .getPhotos({
+          query: 'africa',
           page,
-          perPage: 10,
+          perPage: 8,
           orderBy: 'latest',
         })
         .then((res) => {
@@ -139,7 +145,8 @@ export default {
           .getPhotos({
             query,
             page: 1,
-            perPage: 10,
+            perPage: 8,
+            orderBy: 'relevant',
           })
           .then((res) => {
             const result = res.response.results;
@@ -162,6 +169,10 @@ export default {
             }
           });
       }, 3000);
+    },
+    resetSearch() {
+      this.searchTitle = '';
+      this.searchValue = '';
     },
   },
   mounted() {
@@ -207,12 +218,17 @@ export default {
   }
 
   .grid-item {
+    position: relative;
     margin-bottom: 15px;
+
+    /* how to avoid flicker without giving height a specific dimension */
+    /* height: 500px; */
+    /* border: 1px solid red; */
   }
 
   .img-collection {
     width: 100%;
-    border-radius: 10px;
+    border-radius: 5px;
   }
   .img-collection:hover {
     cursor: pointer;
@@ -223,7 +239,23 @@ export default {
       0 -6px 16px -6px
       var(--hover-shades-3);
   }
-  .caption p, h6 {
+  .overlay-text {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 5%;
+    margin: 0 auto;
+    height: 50px;
+    text-align: left;
+    color: var(--white);
+    border: 2px solid brown;
+    /* transform: translate(20px -30px); */
+  }
+  .overlay-text > h6, small {
+    margin: 0 0.3rem;
+    /* padding: 0; */
+  }
+  .caption h6, p {
     margin: 0.2rem 0.4rem;
     padding-bottom: 0.4rem;
   }

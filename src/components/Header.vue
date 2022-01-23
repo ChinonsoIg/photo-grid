@@ -5,6 +5,7 @@
       <input
         type="text"
         v-model="query"
+        @input="resetSearch"
         placeholder="Search for photo"
       >
     </form>
@@ -28,6 +29,12 @@ export default {
     getQuery() {
       this.$emit('onsubmit', this.query);
       console.log('q: ', this.query);
+    },
+    resetSearch() {
+      if (this.query.length < 1) {
+        console.log('input less than 1 ');
+        this.$emit('onreset', this.searchTitle, this.searchValue);
+      }
     },
   },
 };
