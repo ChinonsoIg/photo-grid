@@ -13,7 +13,8 @@
     "json-server": "^0.17.0",
     "unsplash-js": "^7.0.15",
     "vue": "^3.0.0",
-    "vue-router": "^4.0.0-0"
+    "vue-router": "^4.0.0-0",
+    "vue-unicons": "^3.3.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",

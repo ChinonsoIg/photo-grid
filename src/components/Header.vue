@@ -55,20 +55,19 @@ export default {
   form {
     width: 80%;
     margin: 0 auto;
-    background: var(--gray);
-    text-align: left;
     padding: 0;
-    border-radius: 10px;
+    border-radius: 5px;
+    background: var(--white);
+    /* text-align: left; */
     /* border: 2px solid red; */
-  }
-  h5 {
-    color: var(--tealDark);
-  }
-  .lightText {
-    color: var(--tealMedium);
+
+    display: -ms-flexbox;
+    display: flex;
+    align-items: center;
   }
   input {
-    display: block;
+    /* display: block; */
+    padding-left: 30px;
     width: 100%;
     padding: 10px 6px;
     font-size: 16px;
@@ -80,6 +79,12 @@ export default {
   input:focus {
     outline: none;
     outline: 2px solid var(--tealMedium);
+  }
+  h5 {
+    color: var(--tealDark);
+  }
+  .lightText {
+    color: var(--tealMedium);
   }
 
   @media (max-width: 575.98px) {

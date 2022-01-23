@@ -34,10 +34,6 @@
           <img
             :src="photo.urls.regular"
             class="img-collection" />
-          <!-- <div class="overlay-text">
-            <h6>{{ photo.user.name }}</h6>
-            <small>{{ photo.user.location }}</small>
-          </div> -->
         </div>
         <div v-if="showModal">
           <Modal @close="toggleModal()">
@@ -114,9 +110,9 @@ export default {
           console.log(newPhotos);
           this.photos = [...newPhotos];
           // set loading to false after app has successfully mounted
-          this.isLoading = false;
           this.isError = false;
           this.noResult = false;
+          this.isLoading = false;
         })
         .catch((err) => {
           this.isLoading = false;
@@ -152,9 +148,9 @@ export default {
             const result = res.response.results;
             this.photos = [...result];
             this.searchTitle = 'Search results for ';
-            this.isLoading = false;
             this.noResult = false;
             this.isError = false;
+            this.isLoading = false;
           })
           .catch((err) => {
             this.isLoading = false;
@@ -239,22 +235,7 @@ export default {
       0 -6px 16px -6px
       var(--hover-shades-3);
   }
-  /* .overlay-text {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 5%;
-    margin: 0 auto;
-    height: 50px;
-    text-align: left;
-    color: var(--white);
-    border: 2px solid brown;
-    transform: translate(20px -30px);
-  }
-  .overlay-text > h6, small {
-    margin: 0 0.3rem;
-    padding: 0;
-  } */
+
   .caption h6, p {
     margin: 0.2rem 0.4rem;
     padding-bottom: 0.4rem;
