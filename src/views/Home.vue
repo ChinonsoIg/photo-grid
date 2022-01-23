@@ -20,7 +20,7 @@
 
       <section class="no-result" v-else-if="noResult">
         <h3>Wrong search term!</h3>
-        <p>Please enter a meaningful city/country name.</p>
+        <p>Please enter a meaningful word.</p>
       </section>
 
       <section class="grid-container" v-else>
@@ -31,7 +31,14 @@
           @click="toggleModal(photo)">
           <img
             :src="photo.urls.regular"
+            @load="onImageLoad"
             class="img-collection" />
+
+          <div class="overlay-text" v-if="isImageLoaded">
+            <h6>{{ photo.user.name }}</h6>
+            <small>{{ photo.user.location }}</small>
+          </div>
+
         </div>
         <div v-if="showModal">
           <Modal @close="toggleModal()">
@@ -65,6 +72,7 @@ export default {
       isError: false,
       isErrorMessage: '',
       noResult: false,
+      isImageLoaded: false,
 
       name: '',
       location: '',
@@ -95,6 +103,7 @@ export default {
       this.isLoading = true;
       this.isError = false;
       this.noResult = false;
+      this.isImageLoaded = false;
 
       unsplash.search
         .getPhotos({
@@ -107,7 +116,7 @@ export default {
           const newPhotos = res.response.results;
           console.log(newPhotos);
           this.photos = [...newPhotos];
-          // set loading to false after app has successfully mounted
+          // set loading to false after data is successfully fetched
           this.isError = false;
           this.noResult = false;
           this.isLoading = false;
@@ -129,6 +138,7 @@ export default {
       this.isLoading = true;
       this.isError = false;
       this.noResult = false;
+      this.isImageLoaded = false;
 
       this.searchValue = `"${query}"`;
       this.searchTitle = 'Searching for ';
@@ -167,6 +177,11 @@ export default {
     resetSearch() {
       this.searchTitle = '';
       this.searchValue = '';
+    },
+    onImageLoad() {
+      setTimeout(() => {
+        this.isImageLoaded = true;
+      }, 1000);
     },
   },
   mounted() {
@@ -213,11 +228,11 @@ export default {
 
   .grid-item {
     margin-bottom: 15px;
+    position: relative;
+    height: auto;
   }
-
   .img-collection {
     width: 100%;
-    margin-bottom: 5px;
     border-radius: 5px;
   }
   .img-collection:hover {
@@ -230,18 +245,17 @@ export default {
       var(--hover-shades-3);
   }
   .overlay-text {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
+    position: absolute;
+    bottom: 10%;
     text-align: left;
-    grid-column: 1/2;
-    grid-row: 1/2;
     color: var(--white);
-    border: 1px solid brown;
   }
   .overlay-text > h6, small {
     margin: 0 0.3rem;
     padding: 0;
+  }
+  .overlay-text > small {
+    font-size: 12px;
   }
   .caption h6, p {
     margin: 0.2rem 0.4rem;
