@@ -34,10 +34,10 @@
           <img
             :src="photo.urls.regular"
             class="img-collection" />
-          <div class="overlay-text">
+          <!-- <div class="overlay-text">
             <h6>{{ photo.user.name }}</h6>
             <small>{{ photo.user.location }}</small>
-          </div>
+          </div> -->
         </div>
         <div v-if="showModal">
           <Modal @close="toggleModal()">
@@ -218,10 +218,10 @@ export default {
   }
 
   .grid-item {
-    position: relative;
     margin-bottom: 15px;
 
     /* how to avoid flicker without giving height a specific dimension */
+    /* position: relative; */
     /* height: 500px; */
     /* border: 1px solid red; */
   }
@@ -239,7 +239,7 @@ export default {
       0 -6px 16px -6px
       var(--hover-shades-3);
   }
-  .overlay-text {
+  /* .overlay-text {
     position: absolute;
     left: 0;
     right: 0;
@@ -249,12 +249,12 @@ export default {
     text-align: left;
     color: var(--white);
     border: 2px solid brown;
-    /* transform: translate(20px -30px); */
+    transform: translate(20px -30px);
   }
   .overlay-text > h6, small {
     margin: 0 0.3rem;
-    /* padding: 0; */
-  }
+    padding: 0;
+  } */
   .caption h6, p {
     margin: 0.2rem 0.4rem;
     padding-bottom: 0.4rem;
