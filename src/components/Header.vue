@@ -2,6 +2,8 @@
   <header>
     <!-- @input="getQuery" -->
     <form @submit.prevent="getQuery">
+      <unicon name="search" class="icon"></unicon>
+    <!-- <unicon name="layer-group" fill="royalblue" icon-style="monochrome"></unicon> -->
       <input
         type="text"
         v-model="query"
@@ -55,30 +57,25 @@ export default {
   form {
     width: 80%;
     margin: 0 auto;
-    padding: 0;
+    padding: 0 15px;
     border-radius: 5px;
     background: var(--white);
-    /* text-align: left; */
-    /* border: 2px solid red; */
 
     display: -ms-flexbox;
     display: flex;
     align-items: center;
   }
   input {
-    /* display: block; */
-    padding-left: 30px;
     width: 100%;
-    padding: 10px 6px;
+    padding: 10px;
     font-size: 16px;
     border-radius: 5px;
-    box-sizing: border-box;
     border: none;
     caret-color: var(--tealDark);
   }
   input:focus {
     outline: none;
-    outline: 2px solid var(--tealMedium);
+    border: none;
   }
   h5 {
     color: var(--tealDark);
@@ -87,7 +84,7 @@ export default {
     color: var(--tealMedium);
   }
 
-  @media (max-width: 575.98px) {
+  @media (max-width: 576px) {
     .header {
       height: 120px;
     }
@@ -96,12 +93,9 @@ export default {
       border-radius: 5px;
     }
     input {
-      display: block;
       width: 100%;
       padding: 6px;
-      border-radius: 5px;
-      box-sizing: border-box;
-      border: none;
     }
   }
+
 </style>

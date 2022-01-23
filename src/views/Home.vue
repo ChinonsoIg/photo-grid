@@ -1,13 +1,11 @@
 <template>
   <main>
-    <header>
-      <Header
-        v-on:onsubmit="searchPhotos"
-        v-on:onreset="resetSearch"
-        :searchTitle="searchTitle"
-        :searchValue="searchValue"
-      />
-    </header>
+    <Header
+      v-on:onsubmit="searchPhotos"
+      v-on:onreset="resetSearch"
+      :searchTitle="searchTitle"
+      :searchValue="searchValue"
+    />
 
     <section v-if="isLoading">
       <HomeSkeleton />
@@ -103,7 +101,7 @@ export default {
           query: 'africa',
           page,
           perPage: 8,
-          orderBy: 'latest',
+          orderBy: 'relevant',
         })
         .then((res) => {
           const newPhotos = res.response.results;
@@ -215,15 +213,11 @@ export default {
 
   .grid-item {
     margin-bottom: 15px;
-
-    /* how to avoid flicker without giving height a specific dimension */
-    /* position: relative; */
-    /* height: 500px; */
-    /* border: 1px solid red; */
   }
 
   .img-collection {
     width: 100%;
+    margin-bottom: 5px;
     border-radius: 5px;
   }
   .img-collection:hover {
@@ -235,7 +229,20 @@ export default {
       0 -6px 16px -6px
       var(--hover-shades-3);
   }
-
+  .overlay-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    text-align: left;
+    grid-column: 1/2;
+    grid-row: 1/2;
+    color: var(--white);
+    border: 1px solid brown;
+  }
+  .overlay-text > h6, small {
+    margin: 0 0.3rem;
+    padding: 0;
+  }
   .caption h6, p {
     margin: 0.2rem 0.4rem;
     padding-bottom: 0.4rem;

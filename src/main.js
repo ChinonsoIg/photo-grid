@@ -9,8 +9,7 @@ Unicon.add(uniSearch);
 createApp(App)
   .use(Unicon, {
     fill: 'grey',
-    height: 15,
-    width: 15,
-    padding: 20,
+    height: 16,
+    width: 16,
   })
   .mount('#app');
