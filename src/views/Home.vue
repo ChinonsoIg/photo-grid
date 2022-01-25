@@ -110,7 +110,7 @@ export default {
           query: 'africa',
           page,
           perPage: 8,
-          orderBy: 'relevant',
+          orderBy: 'latest',
         })
         .then((res) => {
           const newPhotos = res.response.results;
